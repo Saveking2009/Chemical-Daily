@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /photos/{id} {
+      allow read: if true;  // นักเรียนดูได้เลย ไม่ต้องล็อกอิน
+      allow create, delete: if request.auth != null
+        && request.auth.token.email == "saveking2009@gmail.com";
+      allow update: if false;
+    }
+  }
+}
